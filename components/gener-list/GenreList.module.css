@@ -1,0 +1,32 @@
+.title {
+  margin-bottom: 24px;
+  font-size: 24px;
+  font-weight: var(--bold-text-weight);
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-top: 16px;
+}
+
+.generList {
+  overflow-y: scroll;
+}
+
+.generListItem:not(:last-child) {
+  margin-bottom: 16px;
+}
+
+.generListItem {
+  display: flex;
+  gap: 16px;
+  padding: 16px;
+  border: 1px solid #d7dcdf;
+  border-radius: 8px;
+}
+
+.radio {
+  margin-left: auto;
+}

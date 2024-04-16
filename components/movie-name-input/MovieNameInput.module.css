@@ -1,0 +1,26 @@
+.wrapper {
+  padding: 150px 0;
+  overflow: hidden;
+}
+
+.lable {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.input {
+  font-size: 16px;
+  border-radius: 8px;
+  padding: 20px 24px;
+  border: 1px solid #d7dcdf;
+}
+
+.input::placeholder {
+  color: #7a7a7a;
+}
+
+.input:focus {
+  outline: 2px solid #40bca3;
+  outline-offset: -2px;
+}

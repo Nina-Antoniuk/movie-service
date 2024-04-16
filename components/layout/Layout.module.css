@@ -1,0 +1,17 @@
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 15px;
+  height: var(--header-height);
+  padding: 16px 24px 24px;
+  background-image: url('/images/header-bg.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top right 40%;
+}
+
+.main {
+  height: calc(100vh - var(--header-height) - var(--fixed-button-height));
+  padding: 0 24px 0;
+}
