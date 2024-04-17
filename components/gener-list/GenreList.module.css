@@ -1,18 +1,8 @@
-.title {
-  margin-bottom: 24px;
-  font-size: 24px;
-  font-weight: var(--bold-text-weight);
-}
-
 .wrapper {
   display: flex;
   flex-direction: column;
   gap: 24px;
   padding-top: 16px;
-}
-
-.generList {
-  overflow-y: scroll;
 }
 
 .generListItem:not(:last-child) {
@@ -56,4 +46,22 @@
   background-image: url('/images/check-icon.svg');
   background-repeat: no-repeat;
   background-position: center;
+}
+
+@media screen and (min-width: 430px) {
+  .wrapper {
+    padding-top: 56px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .wrapper {
+    padding-top: 130px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .wrapper {
+    padding-top: 160px;
+  }
 }

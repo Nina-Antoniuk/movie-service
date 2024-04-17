@@ -1,14 +1,22 @@
+.bgImage {
+  background-image: url('/images/header-bg.png');
+  background-repeat: no-repeat;
+  background-position: top center;
+}
+
+.componentsWrapper {
+  width: 327px;
+  margin: 0 auto;
+}
+
 .header {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 15px;
   height: var(--header-height);
-  padding: 16px 24px 24px;
-  background-image: url('/images/header-bg.png');
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: top right 40%;
+  margin: 0 auto;
+  padding: 16px 0 24px;
 }
 
 .headerButton {
@@ -19,6 +27,7 @@
 
 .backButton {
   composes: headerButton;
+  margin-right: auto;
 }
 
 .menuButton {
@@ -43,7 +52,29 @@
   );
 }
 
-.main {
-  height: calc(100vh - var(--header-height) - var(--fixed-button-height));
-  padding: 0 24px 0;
+@media screen and (min-width: 430px) {
+  .componentsWrapper {
+    width: 350px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .bgImage {
+    background-size: auto;
+  }
+
+  .componentsWrapper {
+    width: 528px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .bgImage {
+    background-size: 100%;
+    background-position: top -10% center;
+  }
+
+  .componentsWrapper {
+    width: 768px;
+  }
 }

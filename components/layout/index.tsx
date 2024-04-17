@@ -17,33 +17,37 @@ export const Layout: FC<Props> = ({ children, progress, resetQuizeStep }) => {
   };
 
   return (
-    <>
-      <header className={styles.header}>
-        <button
-          type="button"
-          className={styles.backButton}
-          disabled={progress < 50}
-          onClick={handleBackButtonClick}
-        >
-          <Image
-            src={progress < 50 ? '/images/back.svg' : '/images/back-active.svg'}
-            alt="menu"
-            width={20}
-            height={20}
-          />
-        </button>
-        <span>{roundedPercentage}%</span>
-        <button type="button" className={styles.menuButton}>
-          <Image src="/images/menu.svg" alt="menu" width={20} height={20} />
-        </button>
-        <div className={styles.progressBg}>
-          <div
-            className={styles.progress}
-            style={{ width: `${progress}%` }}
-          ></div>
-        </div>
-      </header>
-      <main className={styles.main}>{children}</main>
-    </>
+    <div className={styles.bgImage}>
+      <div className={styles.componentsWrapper}>
+        <header className={styles.header}>
+          <button
+            type="button"
+            className={styles.backButton}
+            disabled={progress < 50}
+            onClick={handleBackButtonClick}
+          >
+            <Image
+              src={
+                progress < 50 ? '/images/back.svg' : '/images/back-active.svg'
+              }
+              alt="menu"
+              width={20}
+              height={20}
+            />
+          </button>
+          <span>{roundedPercentage}%</span>
+          <button type="button" className={styles.menuButton}>
+            <Image src="/images/menu.svg" alt="menu" width={20} height={20} />
+          </button>
+          <div className={styles.progressBg}>
+            <div
+              className={styles.progress}
+              style={{ width: `${progress}%` }}
+            ></div>
+          </div>
+        </header>
+        <main>{children}</main>
+      </div>
+    </div>
   );
 };

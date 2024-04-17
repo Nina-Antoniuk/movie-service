@@ -47,3 +47,12 @@ a {
   flex-direction: column;
   justify-content: center;
 }
+
+@media screen and (min-width: 430px) {
+}
+
+@media screen and (min-width: 768px) {
+}
+
+@media screen and (min-width: 1024px) {
+}
