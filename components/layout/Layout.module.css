@@ -7,6 +7,7 @@
 .componentsWrapper {
   width: 327px;
   margin: 0 auto;
+  padding-bottom: var(--fixed-button-height);
 }
 
 .header {

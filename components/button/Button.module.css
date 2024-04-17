@@ -7,8 +7,29 @@
   border-radius: 8px;
   background-color: #40bca3;
   color: #fff;
+  cursor: pointer;
 }
 
 .button:disabled {
   background-color: #83beb3;
+}
+
+@media screen and (min-width: 430px) {
+  .button {
+    display: block;
+    width: 350px;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .button {
+    width: 528px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .button {
+    width: 768px;
+  }
 }

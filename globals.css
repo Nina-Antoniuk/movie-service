@@ -33,26 +33,17 @@ a {
   font-weight: var(--bold-text-weight);
 }
 
-.buttonWrapper {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  padding: 20px 24px 40px;
-  background-color: transparent;
-}
-
 .quizeForm {
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-@media screen and (min-width: 430px) {
-}
-
-@media screen and (min-width: 768px) {
-}
-
-@media screen and (min-width: 1024px) {
+.buttonWrapper {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 20px 24px 40px;
+  background-color: #fff;
 }

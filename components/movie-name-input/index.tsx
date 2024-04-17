@@ -1,5 +1,4 @@
 import { Dispatch, FC, SetStateAction, useState } from 'react';
-import { useRouter } from 'next/router';
 
 import { LAST_QUIZE_STEP } from '@/constants/common';
 
@@ -7,12 +6,29 @@ import { Button } from '../button';
 
 import styles from './MovieNameInput.module.css';
 import { inputValidation } from '@/utils/input-validation';
+import { fetchMovieInfo } from '@/utils/fetch-movie';
+import { log } from 'console';
 
 interface Props {
   changeQuizeStep: Dispatch<SetStateAction<number>>;
+  setMovieInfo: Dispatch<
+    SetStateAction<{
+      Search: {
+        Poster: string;
+        Title: string;
+        Year: string;
+        [key: string]: any;
+      }[];
+    } | null>
+  >;
+  setFetchDataError: Dispatch<SetStateAction<string | null>>;
 }
 
-export const MovieNameInput: FC<Props> = ({ changeQuizeStep }) => {
+export const MovieNameInput: FC<Props> = ({
+  changeQuizeStep,
+  setFetchDataError,
+  setMovieInfo,
+}) => {
   const [inputValue, setInputValue] = useState('');
   const [isValidInputValue, setIsValidInputValue] = useState(true);
 
@@ -26,19 +42,18 @@ export const MovieNameInput: FC<Props> = ({ changeQuizeStep }) => {
     const isValidValue = inputValidation(inputValue);
 
     if (isValidValue) {
-      changeQuizeStep(LAST_QUIZE_STEP);
-      // fetch(`http://www.omdbapi.com/?apikey=76544bf1&t=${inputValue}`)
-      //   .then(response => response.json())
-      //   .then(data => {
-      //     console.log('data', data);
-      //     localStorage.setItem('data', JSON.stringify(data));
-      //   })
-      //   .catch(error => {
-      //     console.log('error', error);
-      //     localStorage.setItem('error', error);
-      //     throw new Error(error);
-      //   })
-      //   .finally(() => changeQuizeStep(LAST_QUIZE_STEP));
+      fetchMovieInfo(inputValue)
+        .then(data => {
+          if (data.Search) {
+            setMovieInfo(data);
+          } else {
+            setFetchDataError(data.Error);
+          }
+        })
+        .catch(error => {
+          throw new Error(error);
+        })
+        .finally(() => changeQuizeStep(LAST_QUIZE_STEP));
     } else {
       setIsValidInputValue(false);
     }
@@ -50,12 +65,17 @@ export const MovieNameInput: FC<Props> = ({ changeQuizeStep }) => {
         <span className="labelCaption">Enter movie title</span>
         <input
           type="text"
-          className={styles.input}
+          className={`${styles.input} ${!isValidInputValue && styles.inputError}`}
           placeholder="Movie title here"
           value={inputValue}
           onChange={handleChange}
         />
       </label>
+      {!isValidInputValue && (
+        <p className={styles.validationErrorText}>
+          Only letters and numbers can be entered in this field
+        </p>
+      )}
       <div className="buttonWrapper">
         <Button
           text="Continue"

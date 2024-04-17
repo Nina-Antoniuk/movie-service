@@ -1,5 +1,5 @@
-export const inputValidation = (value: string) => {
-  console.log('value', value);
+const PATTERN = new RegExp('^[a-zA-Z0-9 ]+$');
 
-  return true;
+export const inputValidation = (value: string) => {
+  return PATTERN.test(value);
 };
