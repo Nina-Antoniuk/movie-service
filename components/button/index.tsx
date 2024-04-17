@@ -6,9 +6,7 @@ interface Props {
   type?: 'button' | 'submit';
   text: string;
   isDisabled?: boolean;
-  action: (
-    e: MouseEventHandler<HTMLButtonElement> | React.FormEvent<HTMLFormElement>
-  ) => void;
+  action: MouseEventHandler<HTMLButtonElement>;
 }
 
 export const Button: FC<Props> = ({

@@ -26,21 +26,23 @@ export const MovieList: FC<Props> = ({ movieInfo, cangeQuizeStep }) => {
   };
 
   return (
-    <ul className={styles.movieList}>
-      {movieList.map(movie => {
-        return (
-          <li key={movie.Title} className={styles.movieListitem}>
-            <div className={styles.imageWrapper}>
-              <Image src={movie.Poster} alt={movie.Title} fill={true} />
-            </div>
-            <p className={styles.movieTitle}>{movie.Title}</p>
-            <p>{movie.Year}</p>
-            <div className="buttonWrapper">
-              <Button text="Complete" type="button" action={handleComplite} />
-            </div>
-          </li>
-        );
-      })}
-    </ul>
+    <>
+      <ul className={styles.movieList}>
+        {movieList.map(movie => {
+          return (
+            <li key={movie.Title} className={styles.movieListitem}>
+              <div className={styles.imageWrapper}>
+                <Image src={movie.Poster} alt={movie.Title} fill={true} />
+              </div>
+              <p className={styles.movieTitle}>{movie.Title}</p>
+              <p>{movie.Year}</p>
+            </li>
+          );
+        })}
+      </ul>
+      <div className="buttonWrapper">
+        <Button text="Complete" type="button" action={handleComplite} />
+      </div>
+    </>
   );
 };

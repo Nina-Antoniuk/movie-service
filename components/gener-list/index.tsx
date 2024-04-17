@@ -42,8 +42,8 @@ export const GenerList: FC<Props> = ({ changeQuizeStep }) => {
       <div className="buttonWrapper">
         <Button
           text="Continue"
-          action={handleButtonClick}
           isDisabled={!ganre}
+          action={handleButtonClick}
         />
       </div>
     </div>

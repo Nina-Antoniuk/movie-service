@@ -32,6 +32,12 @@ export default function Home() {
     setProgress(progress);
   }, [quizeStep]);
 
+  useEffect(() => {
+    if (fetchDataError && quizeStep !== LAST_QUIZE_STEP) {
+      setFetchDataError(null);
+    }
+  }, [fetchDataError, quizeStep]);
+
   return (
     <>
       <Head>

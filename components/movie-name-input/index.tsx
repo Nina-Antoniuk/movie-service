@@ -7,7 +7,6 @@ import { Button } from '../button';
 import styles from './MovieNameInput.module.css';
 import { inputValidation } from '@/utils/input-validation';
 import { fetchMovieInfo } from '@/utils/fetch-movie';
-import { log } from 'console';
 
 interface Props {
   changeQuizeStep: Dispatch<SetStateAction<number>>;
@@ -81,6 +80,7 @@ export const MovieNameInput: FC<Props> = ({
           text="Continue"
           type="submit"
           isDisabled={!inputValue || !isValidInputValue}
+          //@ts-ignore
           action={handleSubmit}
         />
       </div>
