@@ -27,6 +27,33 @@
   border-radius: 8px;
 }
 
-.radio {
+.radioLabel {
+  position: relative;
   margin-left: auto;
+}
+
+.radioInput {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 0;
+  height: 0;
+}
+
+.radioInput::before {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 24px;
+  border: 2px solid #d7dcdf;
+  border-radius: 50%;
+  transform: translate(-100%, -50%);
+}
+
+.radioInput:checked::before {
+  border-color: #40bca3;
+  background-color: #40bca3;
+  background-image: url('/images/check-icon.svg');
+  background-repeat: no-repeat;
+  background-position: center;
 }

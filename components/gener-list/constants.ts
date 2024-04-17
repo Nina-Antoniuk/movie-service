@@ -1,9 +1,4 @@
-type Ganres = 'Drama' | 'Comedy' | 'Action' | 'Thriller' | 'Science fiction';
-
-type Ganre = {
-  icon: string;
-  caption: Ganres;
-};
+import { Ganre } from '@/types/ganres';
 
 export const genreList: Ganre[] = [
   {
