@@ -41,3 +41,9 @@ a {
   padding: 20px 24px 40px;
   background-color: transparent;
 }
+
+.quizeForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

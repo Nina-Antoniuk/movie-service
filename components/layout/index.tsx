@@ -5,15 +5,15 @@ import styles from './Layout.module.css';
 
 interface Props {
   progress: number;
-  resetQuizeStep: Dispatch<SetStateAction<number>>;
   children: ReactNode;
+  resetQuizeStep: Dispatch<SetStateAction<number>>;
 }
 
 export const Layout: FC<Props> = ({ children, progress, resetQuizeStep }) => {
   const roundedPercentage = Math.floor(progress);
 
   const handleBackButtonClick = () => {
-    resetQuizeStep(1);
+    resetQuizeStep(prevState => prevState - 1);
   };
 
   return (
@@ -22,11 +22,11 @@ export const Layout: FC<Props> = ({ children, progress, resetQuizeStep }) => {
         <button
           type="button"
           className={styles.backButton}
-          disabled={progress < 40}
+          disabled={progress < 50}
           onClick={handleBackButtonClick}
         >
           <Image
-            src={progress < 40 ? '/images/back.svg' : '/images/back-active.svg'}
+            src={progress < 50 ? '/images/back.svg' : '/images/back-active.svg'}
             alt="menu"
             width={20}
             height={20}

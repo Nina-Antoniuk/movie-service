@@ -1,14 +1,20 @@
-import { useState } from 'react';
+import { Dispatch, FC, SetStateAction, useState } from 'react';
 import { useRouter } from 'next/router';
+
+import { LAST_QUIZE_STEP } from '@/constants/common';
 
 import { Button } from '../button';
 
 import styles from './MovieNameInput.module.css';
+import { inputValidation } from '@/utils/input-validation';
 
-export const MovieNameInput = () => {
+interface Props {
+  changeQuizeStep: Dispatch<SetStateAction<number>>;
+}
+
+export const MovieNameInput: FC<Props> = ({ changeQuizeStep }) => {
   const [inputValue, setInputValue] = useState('');
-
-  const router = useRouter();
+  const [isValidInputValue, setIsValidInputValue] = useState(true);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -17,18 +23,25 @@ export const MovieNameInput = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    fetch(`http://www.omdbapi.com/?apikey=76544bf1&t=${inputValue}`)
-      .then(response => response.json())
-      .then(data => {
-        console.log('data', data);
-        localStorage.setItem('data', JSON.stringify(data));
-      })
-      .catch(error => {
-        console.log('error', error);
-        localStorage.setItem('error', error);
-        throw new Error(error);
-      })
-      .finally(() => router.push('/movies'));
+    const isValidValue = inputValidation(inputValue);
+
+    if (isValidValue) {
+      changeQuizeStep(LAST_QUIZE_STEP);
+      // fetch(`http://www.omdbapi.com/?apikey=76544bf1&t=${inputValue}`)
+      //   .then(response => response.json())
+      //   .then(data => {
+      //     console.log('data', data);
+      //     localStorage.setItem('data', JSON.stringify(data));
+      //   })
+      //   .catch(error => {
+      //     console.log('error', error);
+      //     localStorage.setItem('error', error);
+      //     throw new Error(error);
+      //   })
+      //   .finally(() => changeQuizeStep(LAST_QUIZE_STEP));
+    } else {
+      setIsValidInputValue(false);
+    }
   };
 
   return (
@@ -44,7 +57,12 @@ export const MovieNameInput = () => {
         />
       </label>
       <div className="buttonWrapper">
-        <Button text="Continue" type="submit" action={handleSubmit} />
+        <Button
+          text="Continue"
+          type="submit"
+          isDisabled={!inputValue || !isValidInputValue}
+          action={handleSubmit}
+        />
       </div>
     </div>
   );

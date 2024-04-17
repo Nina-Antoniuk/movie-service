@@ -1,18 +1,23 @@
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
 
-import { INITIAL_QUIZE_STEP, NUMBER_OF_STEPS } from '@/constants/common';
+import { INITIAL_QUIZE_STEP, LAST_QUIZE_STEP } from '@/constants/common';
 import { progressCounter } from '@/utils/progress-counter';
 import { Layout } from '@/components/layout';
-import { QuizeForm } from '@/components/quize-form';
+import { Movie } from '@/components/movie';
+import { GenerList } from '@/components/gener-list';
+import { MovieNameInput } from '@/components/movie-name-input';
+import { FetchDataError } from '@/components/fetch-data-error';
 
 export default function Home() {
   const [quizeStep, setQuizeStep] = useState(INITIAL_QUIZE_STEP);
   const [progress, setProgress] = useState(() => {
-    const result = progressCounter(NUMBER_OF_STEPS);
+    const result = progressCounter(LAST_QUIZE_STEP);
 
     return result;
   });
+  const [fetchDataError, setFetchDataError] = useState(null);
+  const [movieInfo, setMovieInfo] = useState(null);
 
   useEffect(() => {
     const progress = progressCounter(quizeStep);
@@ -28,7 +33,24 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout progress={progress} resetQuizeStep={setQuizeStep}>
-        <QuizeForm quizeStep={quizeStep} changeQuizeStep={setQuizeStep} />
+        {quizeStep !== LAST_QUIZE_STEP && (
+          <form className="quizeForm">
+            {quizeStep === INITIAL_QUIZE_STEP ? (
+              <GenerList changeQuizeStep={setQuizeStep} />
+            ) : (
+              <MovieNameInput changeQuizeStep={setQuizeStep} />
+            )}
+          </form>
+        )}
+        {quizeStep === LAST_QUIZE_STEP && (
+          <>
+            {!fetchDataError ? (
+              <Movie movieInfo={movieInfo} />
+            ) : (
+              <FetchDataError />
+            )}
+          </>
+        )}
       </Layout>
     </>
   );
