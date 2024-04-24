@@ -1,4 +1,4 @@
-import { Dispatch, FC, SetStateAction, useState } from 'react';
+import { FC, useContext, useState } from 'react';
 import Cookies from 'js-cookie';
 
 import { Ganres } from '@/types/ganres';
@@ -8,16 +8,16 @@ import { Button } from '../button';
 import { genreList } from './constants';
 import { GenerListItem } from './GenreListItem';
 import styles from './GenreList.module.css';
+import { QuizeStepContext } from '../providers/QuizeStepProvider';
 
-interface Props {
-  changeQuizeStep: Dispatch<SetStateAction<number>>;
-}
+export const GenerList: FC = () => {
+  const quizeStepContext = useContext(QuizeStepContext);
 
-export const GenerList: FC<Props> = ({ changeQuizeStep }) => {
   const [ganre, setGanre] = useState<null | Ganres>(null);
 
   const handleButtonClick = () => {
-    changeQuizeStep(2);
+    quizeStepContext?.setQuizeStep(prevState => prevState + 1);
+
     if (ganre) {
       Cookies.set('movi ganre', ganre);
     }
@@ -43,7 +43,7 @@ export const GenerList: FC<Props> = ({ changeQuizeStep }) => {
         <Button
           text="Continue"
           isDisabled={!ganre}
-          action={handleButtonClick}
+          onClick={handleButtonClick}
         />
       </div>
     </div>

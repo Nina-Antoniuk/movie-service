@@ -1,4 +1,4 @@
-import { Dispatch, FC, SetStateAction } from 'react';
+import { FC, useContext } from 'react';
 import Image from 'next/image';
 
 import { INITIAL_QUIZE_STEP } from '@/constants/common';
@@ -6,29 +6,27 @@ import { INITIAL_QUIZE_STEP } from '@/constants/common';
 import { Button } from '../button';
 
 import styles from './MovieList.module.css';
+import { QuizeStepContext } from '../providers/QuizeStepProvider';
+import { MovieDataContext } from '../providers/MovieDataProvider';
+import { useRouter } from 'next/router';
 
-interface Props {
-  cangeQuizeStep: Dispatch<SetStateAction<number>>;
-  movieInfo: {
-    Search: {
-      Poster: string;
-      Title: string;
-      Year: string;
-      [key: string]: any;
-    }[];
-  } | null;
-}
-export const MovieList: FC<Props> = ({ movieInfo, cangeQuizeStep }) => {
-  const movieList = movieInfo!.Search;
+export const MovieList: FC = () => {
+  const quizeStepContext = useContext(QuizeStepContext);
+  const movieListContext = useContext(MovieDataContext);
+
+  const router = useRouter();
+
+  const movieListInfo = movieListContext?.movieList.Search || [];
 
   const handleComplite = () => {
-    cangeQuizeStep(INITIAL_QUIZE_STEP);
+    quizeStepContext?.setQuizeStep(INITIAL_QUIZE_STEP);
+    router.push('/');
   };
 
   return (
     <>
       <ul className={styles.movieList}>
-        {movieList.map(movie => {
+        {movieListInfo.map(movie => {
           return (
             <li key={movie.Title} className={styles.movieListitem}>
               <div className={styles.imageWrapper}>
@@ -41,7 +39,7 @@ export const MovieList: FC<Props> = ({ movieInfo, cangeQuizeStep }) => {
         })}
       </ul>
       <div className="buttonWrapper">
-        <Button text="Complete" type="button" action={handleComplite} />
+        <Button text="Complete" type="button" onClick={handleComplite} />
       </div>
     </>
   );

@@ -1,20 +1,48 @@
-import { Dispatch, FC, ReactNode, SetStateAction } from 'react';
+import { FC, ReactNode, useContext, useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import Image from 'next/image';
+
+import { INITIAL_QUIZE_STEP } from '@/constants/common';
+import { MovieDataList } from '@/types/movie-data';
+import { progressCounter } from '@/utils/progress-counter';
+
+import { QuizeStepContext } from '../providers/QuizeStepProvider';
+import { MovieDataContext } from '../providers/MovieDataProvider';
 
 import styles from './Layout.module.css';
 
 interface Props {
-  progress: number;
   children: ReactNode;
-  resetQuizeStep: Dispatch<SetStateAction<number>>;
 }
 
-export const Layout: FC<Props> = ({ children, progress, resetQuizeStep }) => {
+export const Layout: FC<Props> = ({ children }) => {
+  const quizeStepContext = useContext(QuizeStepContext);
+  const movieListContext = useContext(MovieDataContext);
+
+  const router = useRouter();
+
+  const [progress, setProgress] = useState(() => {
+    return progressCounter(INITIAL_QUIZE_STEP);
+  });
+
   const roundedPercentage = Math.floor(progress);
 
   const handleBackButtonClick = () => {
-    resetQuizeStep(prevState => prevState - 1);
+    quizeStepContext?.setQuizeStep(prevState => prevState - 1);
+
+    if (router.asPath === '/movie-list') {
+      movieListContext?.setMovieList({} as MovieDataList);
+      movieListContext?.setMovieListError('');
+      router.push('/');
+    }
   };
+
+  useEffect(() => {
+    if (quizeStepContext) {
+      const progress = progressCounter(quizeStepContext?.quizeStep);
+      setProgress(progress);
+    }
+  }, [quizeStepContext]);
 
   return (
     <div className={styles.bgImage}>

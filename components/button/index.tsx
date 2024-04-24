@@ -6,21 +6,21 @@ interface Props {
   type?: 'button' | 'submit';
   text: string;
   isDisabled?: boolean;
-  action: MouseEventHandler<HTMLButtonElement>;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
 export const Button: FC<Props> = ({
   type = 'button',
   text,
   isDisabled = false,
-  action,
+  onClick,
 }) => {
   return (
     <button
       className={styles.button}
       type={type}
       disabled={isDisabled}
-      onClick={action}
+      onClick={onClick}
     >
       {text}
     </button>

@@ -1,8 +1,8 @@
 import Head from 'next/head';
 
-import { QuizeFormContent } from '@/components/page-content/quize-form';
+import { MovieListContent } from '@/components/page-content/movie-list';
 
-export default function Home() {
+export default function MoviesList() {
   return (
     <>
       <Head>
@@ -14,7 +14,7 @@ export default function Home() {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <QuizeFormContent />
+      <MovieListContent />
     </>
   );
 }
